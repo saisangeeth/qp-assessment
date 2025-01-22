@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS grocery_item (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    quantity INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS order_item (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
+    grocery_item_id BIGINT NOT NULL,
+    quantity INTEGER NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (grocery_item_id) REFERENCES grocery_item(id)
+);

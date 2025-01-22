@@ -1,0 +1,45 @@
+package com.groceries.grocerybooking.service;
+
+
+import com.groceries.grocerybooking.entity.GroceryItem;
+import com.groceries.grocerybooking.repository.GroceryItemRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class AdminService {
+
+    private final GroceryItemRepository groceryItemRepository;
+
+    public AdminService(GroceryItemRepository groceryItemRepository) {
+        this.groceryItemRepository = groceryItemRepository;
+    }
+
+    public GroceryItem addGroceryItem(GroceryItem item) {
+        return groceryItemRepository.save(item);
+    }
+
+    public List<GroceryItem> getAllItems() {
+        return groceryItemRepository.findAll();
+    }
+
+    public GroceryItem updateGroceryItem(Long id, GroceryItem updatedItem) {
+        GroceryItem existingItem = groceryItemRepository.findById(id).orElseThrow();
+        existingItem.setName(updatedItem.getName());
+
+        existingItem.setPrice(updatedItem.getPrice());
+        existingItem.setQuantity(updatedItem.getQuantity());
+        return groceryItemRepository.save(existingItem);
+    }
+
+    public void deleteGroceryItem(Long id) {
+        groceryItemRepository.deleteById(id);
+    }
+
+    public GroceryItem updateInventory(Long id, int quantity) {
+        GroceryItem item = groceryItemRepository.findById(id).orElseThrow();
+        item.setQuantity(quantity);
+        return groceryItemRepository.save(item);
+    }
+}
