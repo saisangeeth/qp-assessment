@@ -45,7 +45,10 @@ Access the H2 Console
     POST	        /orders	                Place an order.
     GET	            /users/{userId}/orders	View all orders for a specific user.
 
-### Folder Structure
+Folder Structure
+graphql
+Copy
+Edit
 src/
 ├── main/
 │   ├── java/
